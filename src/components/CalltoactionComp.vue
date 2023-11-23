@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!-- i want popcorn -->
     <div>
       <b-jumbotron>
         <h2>What is Sign Syncer?</h2>
