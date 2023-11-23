@@ -6,13 +6,13 @@
         <b-form-input v-model="inputText"></b-form-input>
         <b-input-group-append>
           <!-- Add a click event listener to the Translate button -->
-          <b-button @click="translateText" variant="outline-success">Translate</b-button>
+          <b-button @click="translateText" class="outline">Translate</b-button>
         </b-input-group-append>
       </b-input-group>
     </div>
 
     <div class="video">
-      <b-jumbotron>
+      <b-jumbotron class="textintosign">
         <!-- Display the translated text -->
         <p>Your sentence in the structure of American Sign Language (hopefully):<br><br>{{ translatedText }}</p>
       </b-jumbotron>
@@ -58,7 +58,7 @@ export default {
   margin: 1em auto;
 }
 
-.jumbotron {
+.textintosign {
   padding: 2rem 1rem;
   margin: 2rem 5rem;
   background-color: white !important;
@@ -66,5 +66,17 @@ export default {
   display: grid;
   justify-items: center;
   filter: drop-shadow(2px 4px 6px RGB(250, 187, 90, 0.25));
+}
+
+.outline {
+  width:auto!important;
+  color: #142F64!important;
+  border-color: #142F64!important;
+  filter: drop-shadow(2px 4px 6px RGB(155,182,237,0.75));
+  background-color: transparent!important;
+}
+.outline:hover {
+  background-color: #142F64!important;
+  color: #F9F5F1!important;
 }
 </style>
