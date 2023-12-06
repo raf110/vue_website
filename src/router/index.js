@@ -4,38 +4,31 @@ import HomeView from '../views/HomeView.vue'
 
 Vue.use(VueRouter)
 
-const routes = [
-  {
-    path: '/',
-    name: 'home',
-    component: HomeView
-  },
-  {
-    // enllaç a la subpagina per a que funcioni el menu
-    path: '/home',
-    name: 'home',
-    component: HomeView
-  },
-  {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-  },
-  {
-  path: '/freetranslator',
-  name: 'freetranslator',
-  // route level code-splitting
-  // this generates a separate chunk (about.[hash].js) for this route
-  // which is lazy-loaded when the route is visited.
-  component: () => import(/* webpackChunkName: "about" */ '../views/FTranslatorView.vue')
-}
-]
-
-const router = new VueRouter({
-  routes
+const router = new VueRouter({ 
+  base: '/var/www/html/',
+  routes:  [
+    {
+      path: '/',
+      name: 'home',
+      component: HomeView
+    },
+    {
+      // enllaç a la subpagina per a que funcioni el menu
+      path: '/home',
+      name: 'home',
+      component: HomeView
+    },
+    {
+      path: '/about',
+      name: 'about',
+      component: () => import('../views/AboutView.vue')
+    },
+    {
+    path: '/freetranslator',
+    name: 'freetranslator',
+    component: () => import('../views/FTranslatorView.vue')
+  }
+  ]
 })
 
 export default router

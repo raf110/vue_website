@@ -36,7 +36,9 @@ export default {
         : 'Pending video';
     },
   },
+  
   methods: {
+    
     async runScriptButton() {
       try {
         // Call the API endpoint to start the script
@@ -103,7 +105,9 @@ export default {
         console.error('Error fetching script output:', error);
       }
     },
+    
   },
+  
   beforeDestroy() {
     // Cleanup the interval when the component is destroyed
     clearInterval(this.intervalId);
