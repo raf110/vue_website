@@ -16,6 +16,7 @@
               <br>
                 <p>Select one of the other tabs above to access the translators</p>
               <br>
+              <WEBRTC/>
               <br>
               <br>
               <br>
@@ -41,10 +42,12 @@
   <script>
   import Translate from "../components/VideotoText.vue";
   import Translate2 from "../components/TranslatorComp.vue";
+  import WEBRTC from "../components/CameraComp.vue";
   export default {
     components: {
       Translate,
-      Translate2      
+      Translate2,
+      WEBRTC  
     }
   }
   </script>
