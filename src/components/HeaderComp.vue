@@ -10,10 +10,10 @@
           <b-container>
             <b-collapse id="nav-collapse" is-nav>
               <b-navbar-nav>
-                <b-nav-item aria-label="link to free translator" class="nav-link" to="/freetranslator">Free Translator</b-nav-item>
-                <b-nav-item aria-label="link to " class="nav-link" to="/about">Plans and Pricing</b-nav-item>              
+                <b-nav-item aria-label="link to free translator" class="nav-link primary" to="/freetranslator">Free Translator</b-nav-item>
+                <b-nav-item aria-label="link to " class="nav-link" to="/about">Plans & Pricing</b-nav-item>              
                 <b-nav-item aria-label="link to " class="nav-link" to="/about">Sign Up</b-nav-item>              
-                <b-nav-item aria-label="link to " class="nav-link" to="/about">Log In</b-nav-item>              
+                <b-nav-item aria-label="link to " class="nav-link" to="/login">Log In</b-nav-item>              
               </b-navbar-nav>
             </b-collapse>
           </b-container>
@@ -27,17 +27,26 @@
     </script>
     
     
-    <style scoped>
-    /*estil de la pagina per mostrar els elements en un grid i canviar els colors*/
-    .router-link-exact-active, .router-link-active {
-      background-color: #909090;
-      color: #000000!important;
-    }
-    .navbar-dark .navbar-nav .nav-link {
-      color: #E7E3E4;
+<style scoped>
+  /*estil de la pagina per mostrar els elements en un grid i canviar els colors*/
+  li:has(>.router-link-exact-active, .router-link-active) {
+    background-color: rgba(20, 47, 100, 0.5);
+    color: #F9F5F1!important;
+    border-radius: 10px;
   }
-    .bg-info {
-      background-color: #FABB5A!important;
+    .navbar-dark .navbar-nav .nav-link {
+      color: #1C1414;
+  }
+  .navbar-nav {
+    margin: 0.5em 2em;
+    gap: 1.5em;
+  }
+  .primary {
+    background-color: #9BB6ED;
+    border-radius: 10px;
+  }
+  .bg-info {
+    background-color: #FABB5A!important;
   }
   .logo {
     background-color: #FABB5A!important;

@@ -10,7 +10,6 @@
     <div class="video">
       <b-jumbotron class="signintotext">
         <p>Your signs in text:</p>
-
         <p>{{ scriptOutputText }}</p>
       </b-jumbotron>
       <b-button class="outline" @click="clearScriptButton">Clear</b-button>
@@ -19,38 +18,29 @@
 </template>
 
 <script>
+
+// replace all http://localhost:5000/ for 34.240.160.162 
+
 export default {
   data() {
     return {
       videoStatusMessage: 'Pending video',
       scriptOutputText: '',
-      intervalId: null, // Store the interval ID for later cleanup
+      intervalId: null,
     };
-  },
-  computed: {
-    computedVideoStatusMessage() {
-      return this.videoSent
-        ? 'Video sent'
-        : this.recordedVideoURL
-        ? 'Video done'
-        : 'Pending video';
-    },
   },
   
   methods: {
-    
     async runScriptButton() {
       try {
-        // Call the API endpoint to start the script
-        const response = await fetch('http://localhost:5000/run-script');
-        const result = await response.json();
-
-        // Update the status message based on the result
-        this.videoStatusMessage =
-          result.error || !result.message ? 'Error running script' : result.message;
-
-        // Start polling for updates
-        this.intervalId = setInterval(this.fetchScriptOutput, 2000); // Adjust the interval as needed
+        const response = await fetch('http://localhost:5000/api/run-script');
+        if (response.ok) {
+          this.videoStatusMessage = 'Script started successfully!';
+          this.intervalId = setInterval(this.fetchScriptOutput, 2000);
+        } else {
+          const result = await response.json();
+          this.videoStatusMessage = result.error || 'Error starting script';
+        }
       } catch (error) {
         console.error('Error starting script:', error);
         this.videoStatusMessage = 'Error starting script';
@@ -59,34 +49,30 @@ export default {
 
     async clearScriptButton() {
       try {
-        // Call the API endpoint to start the script
-        const response = await fetch('http://localhost:5000/clear-script');
-        const result = await response.json();
-
-        // Update the status message based on the result
-        this.videoStatusMessage =
-          result.error || !result.message ? 'Error running script' : result.message;
-
-        // Start polling for updates
-        this.intervalId = setInterval(this.fetchScriptOutput, 2000); // Adjust the interval as needed
+        const response = await fetch('http://localhost:5000/api/clear-script');
+        if (response.ok) {
+          this.videoStatusMessage = 'Script cleared successfully!';
+          this.intervalId = setInterval(this.fetchScriptOutput, 2000);
+        } else {
+          const result = await response.json();
+          this.videoStatusMessage = result.error || 'Error clearing script';
+        }
       } catch (error) {
-        console.error('Error starting script:', error);
-        this.videoStatusMessage = 'Error starting script';
+        console.error('Error clearing script:', error);
+        this.videoStatusMessage = 'Error clearing script';
       }
     },
 
     async stopScriptButton() {
       try {
-        // Call the API endpoint to stop the script
-        const response = await fetch('http://localhost:5000/stop-script');
-        const result = await response.json();
-
-        // Update the status message based on the result
-        this.videoStatusMessage =
-          result.error || !result.message ? 'Error stopping script' : result.message;
-
-        // Stop polling for updates
-        clearInterval(this.intervalId);
+        const response = await fetch('http://localhost:5000/api/stop-script');
+        if (response.ok) {
+          this.videoStatusMessage = 'Script stopped successfully!';
+          clearInterval(this.intervalId);
+        } else {
+          const result = await response.json();
+          this.videoStatusMessage = result.error || 'Error stopping script';
+        }
       } catch (error) {
         console.error('Error stopping script:', error);
         this.videoStatusMessage = 'Error stopping script';
@@ -95,21 +81,21 @@ export default {
 
     async fetchScriptOutput() {
       try {
-        // Fetch the output from the new API endpoint
-        const outputResponse = await fetch('http://localhost:5000/get-output');
-        const outputResult = await outputResponse.json();
-
-        // Update the script output as a continuous string
-        this.scriptOutputText = outputResult.join('');
+        const outputResponse = await fetch('http://localhost:5000/api/get-output');
+        if (outputResponse.ok) {
+          const outputResult = await outputResponse.json();
+          this.scriptOutputText = outputResult.join('');
+        } else {
+          this.scriptOutputText = 'Error fetching script output';
+        }
       } catch (error) {
         console.error('Error fetching script output:', error);
+        this.scriptOutputText = 'Error fetching script output';
       }
     },
-    
   },
   
   beforeDestroy() {
-    // Cleanup the interval when the component is destroyed
     clearInterval(this.intervalId);
   },
 };
