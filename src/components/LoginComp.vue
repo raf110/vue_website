@@ -2,7 +2,10 @@
     <div class="container mt-5">
       <h2>Existing Account</h2>
       <b-jumbotron>
-
+        <!-- Display error message if login fails -->
+        <div v-if="loginError" class="error-box">
+          {{ loginError }}
+        </div>
       <b-form @submit.prevent="login">
         <!-- Email Address Input -->
         <b-form-group
@@ -85,19 +88,38 @@
         password: '',
         rememberMe: false,
         showPassword: false,
+        loginError: null
       };
     },
     methods: {
-      login() {
-        // Add your login logic here
-        console.log('Login clicked');
+      async login() {
+        try {
+          const response = await this.$axios.post('http://localhost:3000/login', {
+            email: this.email,
+            password: this.password,
+          });
+          const token = response.data.token;
+          localStorage.setItem('token', token);
+          //this.loggedInUser = response.data.user;
+
+          // Reload the page
+          //window.location.reload();
+          //this.$router.push('/');
+          //this.$router.go(-1);
+          window.location.href = '/';
+
+        } catch (error) {
+          console.error(error.response.data.message);
+          this.loginError = 'Incorrect email address or password. Please try again.';
+        }
       },
       cancel() {
-        // Add your cancel logic here
-        console.log('Cancel clicked');
+        // Redirect to the previous page
+        this.$router.go(-1);
       },
       togglePassword() {
         this.showPassword = !this.showPassword;
+        //console.log(this.loggedInUser);
       },
     },
   };
@@ -156,6 +178,15 @@
 
   .custom-control-label {
     left: -2em!important;
+  }
+
+  .error-box {
+    background-color: #f8d7da;
+    /*color: #721c24;*/
+    padding: 1em;
+    border-radius: 0.5em;
+    margin-top: -1em;
+    margin-bottom: 2em;
   }
 </style>
 

@@ -29,6 +29,12 @@ Vue.component('font-awesome-icon', FontAwesomeIcon);
 Vue.config.productionTip = false
 Vue.prototype.$axios = axios;
 
+// During page load or navigation
+const authToken = localStorage.getItem('token');
+
+// Set the default headers for all Axios requests
+axios.defaults.headers.common['authorization'] = authToken;
+
 new Vue({
   router,
   store,

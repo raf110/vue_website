@@ -24,10 +24,20 @@ const router = new VueRouter({
       component: () => import('../views/AboutView.vue')
     },
     {
-    path: '/freetranslator',
-    name: 'freetranslator',
-    component: () => import('../views/FTranslatorView.vue')
-  }
+      path: '/freetranslator',
+      name: 'freetranslator',
+      component: () => import('../views/FTranslatorView.vue')
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: () => import('../views/LoginView.vue')
+    },
+    {
+      path: '/protected',
+      name: 'protected',
+      component: () => import('../views/LoginView.vue')
+    }
   ]
 })
 

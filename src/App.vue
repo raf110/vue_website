@@ -4,7 +4,8 @@
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
     </nav> -->
-    <Header/>
+    <HeaderLoggedIn v-if="isTokenValid" />
+    <Header v-else />
     <router-view/>
     <Footer/>
 
@@ -46,15 +47,50 @@ p {
 }
 
 </style>
+
 <script>
 // importem els compoenents
-import Header from './components/HeaderComp';   
-import Footer from './components/FooterComp';   
+import Header from './components/HeaderComp';
+import HeaderLoggedIn from './components/HeaderLoggedInComp';
+import Footer from './components/FooterComp';
   export default {
     name: 'App',
+    loggedInUser: null,
     components: {
       Header,
-      Footer
+      HeaderLoggedIn,
+      Footer,
+    },
+    computed: {
+      isTokenValid() {
+        // Check if the token exists and is valid (you should implement this logic based on your authentication setup)
+        const token = localStorage.getItem('token');
+        // Implement your logic to check if the token is valid (e.g., not expired, signature verified, etc.)
+        return token && this.isValidToken(token);
+      },
+    },
+    methods: {
+      async isValidToken() {
+        /*try {
+          const response = await this.$axios.post('http://your-backend-api/verify-token', { token });
+
+          if (response.status === 200) {
+            return true; // Token is valid
+          } else {
+            return false; // Token is invalid
+          }
+        } catch (error) {
+          console.error('Error verifying token:', error);
+          return false; // Request or verification error
+        }*/
+        // Implement your logic to check if the token is valid
+        // For example, you might use a library like jsonwebtoken to verify the token
+        // Return true if the token is valid, otherwise return false
+        // Example:
+        // const decodedToken = jwt.verify(token, 'yourSecretKey');
+        // return !decodedToken.expired;
+        return true; // Placeholder; replace with your actual validation logic
+      },
     },
     data() {
         return {
