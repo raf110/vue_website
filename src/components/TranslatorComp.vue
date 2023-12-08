@@ -14,7 +14,7 @@
     <div class="video">
       <b-jumbotron class="textintosign">
         <!-- Display the translated text -->
-        <p>Your sentence in the structure of American Sign Language (hopefully):<br><br>{{ translatedText }}</p>
+        <p>Your sentence in the structure of American Sign Language:<br><br>{{ translatedText }}</p>
       </b-jumbotron>
     </div>
   </div>
