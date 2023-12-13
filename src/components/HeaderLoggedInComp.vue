@@ -12,7 +12,7 @@
         <b-navbar-nav>
           <b-nav-item aria-label="link to free translator" class="nav-link primary" to="/freetranslator">Free Translator</b-nav-item>
           <b-nav-item aria-label="link to " class="nav-link" to="/about">Plans & Pricing</b-nav-item>
-          <b-nav-item aria-label="link to " class="nav-link" @click="logout">Log Out</b-nav-item>
+          <b-nav-item aria-label="link to " class="nav-link" @click="logout">Log Out ({{ userEmail }})</b-nav-item>
         </b-navbar-nav>
       </b-collapse>
     </b-container>
@@ -21,11 +21,18 @@
 
 <script>
 export default {
+  computed: {
+    userEmail() {
+      // Retrieve the userEmail from localStorage
+      return localStorage.getItem("userEmail") || "Unknown User";
+    },
+  },
   methods: {
     logout() {
       console.log('logout');
       // Perform logout logic, such as clearing the token
       localStorage.removeItem('token');
+      localStorage.removeItem('userEmail');
 
       // Optionally, redirect to another route after logout
       //this.$router.push('/');

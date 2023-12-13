@@ -98,9 +98,11 @@
             email: this.email,
             password: this.password,
           });
+
           const token = response.data.token;
+          const userEmail = response.data.user;
           localStorage.setItem('token', token);
-          //this.loggedInUser = response.data.user;
+          localStorage.setItem('userEmail', userEmail);
 
           // Reload the page
           //window.location.reload();
@@ -119,7 +121,6 @@
       },
       togglePassword() {
         this.showPassword = !this.showPassword;
-        //console.log(this.loggedInUser);
       },
     },
   };

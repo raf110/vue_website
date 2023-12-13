@@ -33,11 +33,11 @@ const router = new VueRouter({
       name: 'login',
       component: () => import('../views/LoginView.vue')
     },
-    {
+    /*{
       path: '/protected',
       name: 'protected',
       component: () => import('../views/LoginView.vue')
-    }
+    }*/
   ]
 })
 
